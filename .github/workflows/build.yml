@@ -13,6 +13,10 @@ jobs:
         run: |
           pip install buildozer
           buildozer init
-          sed -i 's/package.name = myapp/package.name = ze8csystem/' buildozer.spec
-          # ملاحظة: هذا السطر سيقوم بمحاكاة البناء للتأكد من اشتغال المحرك
-          echo "Building process started..."
+          # هاد السطر هو اللي يخرج الـ APK
+          buildozer -v android debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-app-apk
+          path: bin/*.apk
