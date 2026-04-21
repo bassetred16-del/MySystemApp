@@ -8,7 +8,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python_version: '3.10'
+          python-version: '3.10'
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -16,9 +16,9 @@ jobs:
           pip install --user --upgrade buildozer
       - name: Build with Buildozer
         run: |
-          # هاد السطر راح يكريي ملف الإعدادات إذا ماكانش
-          [ -f buildozer.spec ] || buildozer init
-          # هاد السطر راح يبدأ البناء الحقيقي
+          buildozer init
+          # سطر لتجاوز التفاعلات اليدوية
+          sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/' buildozer.spec
           buildozer -v android debug
       - name: Upload APK
         uses: actions/upload-artifact@v3
