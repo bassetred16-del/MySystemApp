@@ -9,9 +9,9 @@ jobs:
         run: pip install buildozer cython==0.29.33
       - name: Build
         run: |
-          buildozer init
-          sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/' buildozer.spec
-          buildozer -v android debug
+           buildozer init
+           sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/' buildozer.spec
+           buildozer -v android debug
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
