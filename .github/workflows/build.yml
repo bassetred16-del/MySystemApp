@@ -1,25 +1,23 @@
-name: Build APK
-on: [push]
+name: Build
+on: push
 jobs:
-  build:
+  apk:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
+          python-version: '3.8'
       - name: Install Buildozer
         run: pip install buildozer
-      - name: Build APK
+      - name: Run Buildozer
         run: |
           buildozer init
-          sed -i 's/package.name = myapp/package.name = ze8csystem/' buildozer.spec
           sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/' buildozer.spec
-          # أمر البناء المباشر
           buildozer -v android debug
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
+      - name: Upload
+        uses: actions/upload-artifact@v2
         with:
-          name: my-app-apk
+          name: my_app
           path: bin/*.apk
